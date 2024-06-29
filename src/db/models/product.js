@@ -1,26 +1,26 @@
-import { model, Shema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-const productShema = new Shema(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
+const productShema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
 
-        price: {
-            type: Number,
-            required: true,
-        },
-        discount: {
-            type: Number,
-            required: false,
-            default: 0,
-        },
+    price: {
+      type: Number,
+      required: true,
     },
-    {
-        timestamps: true,
-        versionKey: false,
+    discount: {
+      type: Number,
+      required: false,
+      default: 0,
     },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
 export const ProductCollection = model("product", productShema);
