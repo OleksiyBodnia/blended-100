@@ -2,8 +2,10 @@ import express, { json } from "express";
 import cors from "cors";
 import pino from "pino-http";
 import { env } from "./utils/env-config.js";
-import { productsRouter } from "../src/routers/productsRouter.js";
+import { productsRouter } from "./routers/productsRouter.js";
+import { authRouter } from './routers/authRouter.js';
 import { errorHandler } from "./middlewares/errorHandler.js";
+
 
 export function startServer() {
   const app = express();
@@ -29,6 +31,7 @@ export function startServer() {
   //   app.get(router);
 
   app.use("/api/products", productsRouter);
+  app.use("/api/auth", authRouter);
 
   app.use((req, res) => {
     res.status(404).json({
