@@ -4,7 +4,9 @@ import { productsAddSchemas } from "../validation/productsSchemas.js";
 
 export const createProduct = async (req, res, next) => {
   try {
-    const product = await ProductCollection.create(req.body);
+    const {body, user} = req;
+    
+    const product = await ProductCollection.create({...body, owner: user._id});
 
     res.status(201).json({
       status: res.status,

@@ -16,6 +16,10 @@ const productShema = new Schema(
       required: false,
       default: 0,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    }
   },
   {
     timestamps: true,
