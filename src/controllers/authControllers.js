@@ -3,8 +3,8 @@ import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import { SessionCollection } from "../db/models/session.js";
 import randomBytes from "randombytes";
-import { now } from "mongoose";
-import { date } from "joi";
+import { sendMail } from "../utils/sendMail.js";
+import { env } from "../utils/env-config.js";
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -86,5 +86,17 @@ export const sendEmailController = async (req, res, next) => {
     if (!user) {
       throw createHttpError(404, "Not found email");
     }
-  } catch (error) {}
+
+    await sendMail({
+      from: env.SMTP_USER,
+      to: email,
+      subject: "To reset password instruction",
+      html: "",
+      text: "New password agjfalh",
+    });
+
+    res.status(200).json("ok");
+  } catch (error) {
+    next(error);
+  }
 };
